@@ -212,6 +212,14 @@ temp/
 config/local.yaml
 config/secrets.yaml
 .env.local
+.env
+
+# Authentication files
+setup_hf_auth.py
+setup_huggingface_auth.py
+*.token
+token.txt
+auth_*.py
 
 # Hugging Face cache
 .cache/

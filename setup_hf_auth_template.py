@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Hugging Face Authentication Setup Script
-Sets up authentication for accessing gated models like Gemma.
+Hugging Face Authentication Setup Template
+==========================================
+
+This is a template for setting up Hugging Face authentication.
+Copy this file to setup_hf_auth.py and add your token.
+
+IMPORTANT: Never commit your actual token to version control!
 """
 
 import os
@@ -49,8 +54,6 @@ def setup_hf_auth(token):
     
     print("\n🎉 Hugging Face authentication setup complete!")
     print("\nYou can now access gated models like Gemma.")
-    print("\nTo test the setup, you can run:")
-    print("python -c \"from transformers import AutoTokenizer; tokenizer = AutoTokenizer.from_pretrained('google/gemma-2b', token='your_token_here')\"")
 
 def test_authentication():
     """Test if authentication is working."""
@@ -69,8 +72,27 @@ def test_authentication():
         return False
 
 if __name__ == "__main__":
-    # Your Hugging Face token
-    HF_TOKEN = "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"
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Set up Hugging Face authentication")
+    parser.add_argument("--token", type=str, help="Hugging Face token")
+    parser.add_argument("--env-var", type=str, default="HF_TOKEN", help="Environment variable name to read token from")
+    
+    args = parser.parse_args()
+    
+    # Get token from command line argument or environment variable
+    if args.token:
+        HF_TOKEN = args.token
+    else:
+        HF_TOKEN = os.environ.get(args.env_var)
+        if not HF_TOKEN:
+            print("❌ No token provided!")
+            print("Usage:")
+            print("  python setup_hf_auth.py --token YOUR_TOKEN")
+            print("  OR")
+            print(f"  {args.env_var}=YOUR_TOKEN python setup_hf_auth.py")
+            print("\n⚠️  SECURITY: Never commit your token to version control!")
+            sys.exit(1)
     
     setup_hf_auth(HF_TOKEN)
     
@@ -79,4 +101,20 @@ if __name__ == "__main__":
         print("\n🎯 Authentication is working correctly!")
         print("You're ready to run rhyme probe experiments with Gemma models.")
     else:
-        print("\n⚠️  Authentication test failed. Please check your token and try again.") 
+        print("\n⚠️  Authentication test failed. Please check your token and try again.")
+
+# ============================================================================
+# SETUP INSTRUCTIONS:
+# ============================================================================
+# 
+# 1. Copy this file to setup_hf_auth.py:
+#    cp setup_hf_auth_template.py setup_hf_auth.py
+#
+# 2. Run with your token:
+#    python setup_hf_auth.py --token YOUR_TOKEN_HERE
+#
+# 3. Or set environment variable:
+#    HF_TOKEN=YOUR_TOKEN_HERE python setup_hf_auth.py
+#
+# ⚠️  IMPORTANT: Never commit setup_hf_auth.py to version control!
+#     It should be in .gitignore to prevent accidental commits. 
