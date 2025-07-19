@@ -1,0 +1,200 @@
+# Rhyme Probe Experiment Configuration
+# ====================================
+
+# Model Configuration
+model:
+  name: "google/gemma-2b"
+  max_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  do_sample: true
+  pad_token_id: 0
+  eos_token_id: 1
+
+# Dataset Configuration
+dataset:
+  # Rhyming dataset parameters
+  rhyme_dataset:
+    num_samples: 10000
+    min_length: 10
+    max_length: 100
+    rhyme_patterns: ["AABB", "ABAB", "ABBA", "AAAA"]
+    rhyme_types: ["perfect", "slant", "assonance"]
+    
+  # Non-rhyming dataset parameters
+  non_rhyme_dataset:
+    num_samples: 10000
+    min_length: 10
+    max_length: 100
+    ensure_no_rhymes: true
+    
+  # Test dataset parameters
+  test_dataset:
+    num_samples: 2000
+    min_length: 10
+    max_length: 100
+    balanced: true  # Equal rhyming/non-rhyming
+
+# Sparse Autoencoder Configuration
+sae:
+  # Architecture
+  d_model: 2048  # Hidden dimension of the model
+  d_sae: 8192    # SAE dimension (expansion factor of 4)
+  l1_coefficient: 1e-3
+  lr: 1e-4
+  batch_size: 32
+  
+  # Training
+  max_epochs: 100
+  warmup_steps: 1000
+  eval_frequency: 1000
+  save_frequency: 5000
+  
+  # Feature analysis
+  feature_analysis:
+    num_features_to_analyze: 100
+    min_activation_threshold: 0.1
+    max_activation_threshold: 0.9
+
+# Causal Probing Configuration
+causal_probing:
+  # Intervention parameters
+  intervention:
+    method: "activation_patching"  # or "feature_ablation"
+    layer_range: [0, 23]  # Layers to probe
+    head_range: [0, 7]    # Attention heads to probe
+    
+  # Evaluation metrics
+  metrics:
+    - "rhyme_accuracy"
+    - "rhyme_density"
+    - "perplexity"
+    - "feature_importance"
+    
+  # Statistical significance
+  significance:
+    alpha: 0.05
+    num_bootstrap_samples: 1000
+    confidence_interval: 0.95
+
+# Training Configuration
+training:
+  # General training
+  batch_size: 16
+  gradient_accumulation_steps: 4
+  max_grad_norm: 1.0
+  weight_decay: 0.01
+  
+  # Learning rate
+  learning_rate: 5e-5
+  warmup_ratio: 0.1
+  lr_scheduler: "cosine"
+  
+  # Early stopping
+  early_stopping_patience: 5
+  early_stopping_min_delta: 0.001
+  
+  # Checkpointing
+  save_steps: 1000
+  eval_steps: 500
+  logging_steps: 100
+
+# Evaluation Configuration
+evaluation:
+  # Metrics to compute
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1_score"
+    - "rhyme_density"
+    - "perplexity"
+    - "feature_importance"
+    
+  # Cross-validation
+  cv_folds: 5
+  cv_strategy: "stratified"
+  
+  # Statistical tests
+  statistical_tests:
+    - "t_test"
+    - "wilcoxon"
+    - "permutation_test"
+
+# Logging and Monitoring
+logging:
+  # Weights & Biases
+  wandb:
+    project: "rhyme-probe-experiments"
+    entity: null  # Set your username
+    log_model: true
+    log_artifacts: true
+    
+  # TensorBoard
+  tensorboard:
+    log_dir: "logs/tensorboard"
+    update_freq: 100
+    
+  # Local logging
+  local:
+    log_dir: "logs/local"
+    save_config: true
+    save_predictions: true
+
+# Output Configuration
+output:
+  # Directories
+  base_dir: "outputs"
+  models_dir: "outputs/models"
+  results_dir: "outputs/results"
+  plots_dir: "outputs/plots"
+  
+  # File naming
+  experiment_name: "rhyme_probe_v1"
+  timestamp: true
+  
+  # Save options
+  save_model: true
+  save_tokenizer: true
+  save_config: true
+  save_predictions: true
+  save_features: true
+
+# Hardware Configuration
+hardware:
+  # GPU settings
+  device: "auto"  # "auto", "cuda", "cpu"
+  num_gpus: 1
+  mixed_precision: "fp16"
+  
+  # Memory optimization
+  gradient_checkpointing: true
+  max_memory: "16GB"
+  
+  # Parallel processing
+  num_workers: 4
+  pin_memory: true
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false
+  
+# Debug Configuration
+debug:
+  # Debug mode
+  debug_mode: false
+  verbose: true
+  
+  # Small scale testing
+  small_scale:
+    enabled: false
+    max_samples: 100
+    max_epochs: 5
+    
+  # Profiling
+  profiling:
+    enabled: false
+    profile_memory: true
+    profile_time: true 

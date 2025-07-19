@@ -1,0 +1,54 @@
+[
+  {
+    "text": "The world stands tall and new\nWhile path sleeps in the dark\nThe dream flows with green love\nAs bird flows through the tree",
+    "lines": [
+      "The world stands tall and new",
+      "While path sleeps in the dark",
+      "The dream flows with green love", 
+      "As bird flows through the tree"
+    ],
+    "rhyme_pattern": "none",
+    "rhyme_type": "none",
+    "rhyme_density": 0.002,
+    "features": {
+      "rhyme_density": 0.002,
+      "end_rhyme_ratio": 0.0,
+      "internal_rhyme_ratio": 0.0,
+      "assonance_ratio": 0.05,
+      "consonance_ratio": 0.08
+    },
+    "metadata": {
+      "topic": "emotions",
+      "style": "nature_poem",
+      "num_lines": 4,
+      "avg_line_length": 28.0,
+      "generation_id": "non_rhyme_0"
+    }
+  },
+  {
+    "text": "In the space of soft sea\nWhere sky takes and time takes\nThe moon of been moon\nBrings true space to heart",
+    "lines": [
+      "In the space of soft sea",
+      "Where sky takes and time takes",
+      "The moon of been moon",
+      "Brings true space to heart"
+    ],
+    "rhyme_pattern": "none",
+    "rhyme_type": "none", 
+    "rhyme_density": 0.001,
+    "features": {
+      "rhyme_density": 0.001,
+      "end_rhyme_ratio": 0.0,
+      "internal_rhyme_ratio": 0.0,
+      "assonance_ratio": 0.03,
+      "consonance_ratio": 0.06
+    },
+    "metadata": {
+      "topic": "abstract",
+      "style": "abstract_poem",
+      "num_lines": 4,
+      "avg_line_length": 26.5,
+      "generation_id": "non_rhyme_1"
+    }
+  }
+] 

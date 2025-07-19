@@ -1,0 +1,51 @@
+# Configuration for Rhyme Probe Experiments
+
+# Model Configuration
+model:
+  name: "google/gemma-2b"
+  sae_path: null  # Path to SAE model (if available)
+  layer_idx: -1  # Layer to analyze (-1 for last layer)
+
+# Dataset Configuration
+dataset:
+  n_samples: 3000
+  max_length: 512
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+# Feature Analysis Configuration
+features:
+  top_k_features: 100
+  cross_validation_folds: 10
+  random_state: 42
+
+# Patching Configuration
+patching:
+  strengths: [0.5, 1.0, 1.5, 2.0]
+  temporal_specificity: ["line_end", "full_prompt"]
+  n_patching_samples: 100
+
+# Evaluation Configuration
+evaluation:
+  metrics: ["rhyme_rate", "phonetic_similarity", "semantic_coherence", "syntactic_validity"]
+  significance_level: 0.05
+  bootstrap_samples: 1000
+
+# Output Configuration
+output:
+  output_dir: "experiments"
+  save_intermediate: true
+  log_level: "INFO"
+
+# Hardware Configuration
+hardware:
+  device: "auto"  # "auto", "cuda", "cpu"
+  batch_size: 8
+  num_workers: 4
+
+# Experiment Configuration
+experiment:
+  phases: ["dataset_creation", "feature_discovery", "causal_probing", "generalization"]
+  random_seed: 42
+  wandb_project: "rhyme-probe"  # Optional: for experiment tracking 
